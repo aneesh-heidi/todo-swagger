@@ -16,9 +16,14 @@ function updateTodo(todo) {
     todos[todo.id] = todo;
 }
 
+function deleteTodo(id) {
+    delete todos[id];
+}
+
 module.exports = {
     addTodo,
     getTodo,
     getTodos,
     updateTodo,
+    deleteTodo,
 }

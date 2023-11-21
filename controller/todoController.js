@@ -146,9 +146,35 @@ const updateTodo = async (req, res) => {
 }
 
 
+
+const deleteTodo = async (req, res) => {
+    try {
+        const id = req.params.id
+        if (id == '' || Number(id) == NaN) {
+            throw 'Empty ID';
+        }
+        const todo = repository.getTodo(id);
+        if (todo == undefined) {
+            throw 'Todo does not exists';
+        }
+
+        repository.deleteTodo(id);
+        res.status(200).json({ success: true, data: todo })
+    } catch (error) {
+        console.error(error);
+        if (error == 'Empty ID' || error == 'Todo does not exists') {
+            res.status(400).json({ success: false, error: error, message: 'Invalid ID' });
+            return
+        }
+        res.status(500).json({ success: false, error: error, message: 'Internal Server Error' });
+    }
+}
+
+
 module.exports = {
     addTodo,
     getTodos,
     getTodo,
     updateTodo,
+    deleteTodo,
 }

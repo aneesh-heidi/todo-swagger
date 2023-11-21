@@ -1,5 +1,5 @@
 const express = require('express');
-const { addTodo, getTodos, getTodo, updateTodo } = require('../controller/todoController')
+const { addTodo, getTodos, getTodo, updateTodo, deleteTodo } = require('../controller/todoController')
 
 const router = express.Router();
 
@@ -140,5 +140,43 @@ router.get('/:id', getTodo);
  *                             $ref: '#/components/schemas/TodoError'
  */
 router.put('/:id', updateTodo);
+
+
+/**
+ * @swagger
+ * paths:
+ *  /todo/{id}:
+ *      delete:
+ *          summary: Delete todo by ID.
+ *          description: API to delete a todo by id.
+ *          parameters:
+ *            - in: path
+ *              name: id
+ *              schema:
+ *                type: string
+ *              required: true
+ *              description: The todo id
+ *          responses:
+ *              '200':
+ *                  description: Returns the todo with the deleting id
+ *                  content:
+ *                      application/json:
+ *                         schema:
+ *                             $ref: '#/components/schemas/TodoResult'
+ *              '400':
+ *                  description: Input error
+ *                  content:
+ *                      application/json:
+ *                         schema:
+ *                             $ref: '#/components/schemas/TodoError'
+ * 
+ *              '500':
+ *                  description: Internal server error
+ *                  content:
+ *                      application/json:
+ *                         schema:
+ *                             $ref: '#/components/schemas/TodoError'
+ */
+router.delete('/:id', deleteTodo);
 
 module.exports = router;
