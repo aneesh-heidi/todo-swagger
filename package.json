@@ -1,0 +1,25 @@
+{
+  "name": "todo-swagger",
+  "version": "1.0.0",
+  "description": "A sample todo app to get familiarized with swagger documentation",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aneesh-heidi/todo-swagger.git"
+  },
+  "keywords": [
+    "todo",
+    "swagger",
+    "documentation",
+    "node.js"
+  ],
+  "author": "aneesh-heidi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/aneesh-heidi/todo-swagger/issues"
+  },
+  "homepage": "https://github.com/aneesh-heidi/todo-swagger#readme"
+}
