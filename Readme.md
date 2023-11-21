@@ -10,7 +10,7 @@ This reository is to test nodejs, express  and swagger
 
 `npm i`
 
-`node index.js`
+`node app.js`
 
 ##### Path to docs:
 
