@@ -5,7 +5,7 @@ function addTodo(todo) {
 }
 
 function getTodos() {
-    return todos;
+    return Object.values(todos);
 }
 
 function getTodo(id) {
