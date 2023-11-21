@@ -12,8 +12,13 @@ function getTodo(id) {
     return todos[id];
 }
 
+function updateTodo(todo) {
+    todos[todo.id] = todo;
+}
+
 module.exports = {
     addTodo,
     getTodo,
     getTodos,
+    updateTodo,
 }

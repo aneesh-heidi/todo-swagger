@@ -100,8 +100,55 @@ const getTodo = async (req, res) => {
         res.status(500).json({ success: false, error: error, message: 'Internal Server Error' });
     }
 }
+
+const updateTodo = async (req, res) => {
+    try {
+        const id = req.params.id
+        if (id == '' || Number(id) == NaN) {
+            throw 'Empty ID'
+        }
+
+        const todo = repository.getTodo(id);
+        if (todo == undefined) {
+            throw 'Todo does not exists'
+        }
+
+        const updateTodo = new Todo(todo.id, todo.title, todo.description, todo.completed)
+        const { title, description, completed } = req.body;
+
+        if (title != undefined && title == '') {
+            throw 'Empty title'
+        }
+        if (typeof completed != "boolean") {
+            throw 'Invalid status'
+        }
+
+        if (title != undefined) {
+            updateTodo.setTitle(title);
+        }
+        if (description != undefined) {
+            updateTodo.setDesc(description);
+        }
+        if (completed != undefined) {
+            updateTodo.setStatus(Boolean(completed));
+        }
+
+        repository.updateTodo(updateTodo);
+        res.status(200).json({ success: true, data: updateTodo })
+    } catch (error) {
+        console.error(error);
+        if (error == 'Empty ID' || error == 'Todo does not exists' || error == 'Empty title' || error == 'Invalid status') {
+            res.status(400).json({ success: false, error: error, message: 'Invalid ID' });
+            return
+        }
+        res.status(500).json({ success: false, error: error, message: 'Internal Server Error' });
+    }
+}
+
+
 module.exports = {
     addTodo,
     getTodos,
-    getTodo
+    getTodo,
+    updateTodo,
 }
