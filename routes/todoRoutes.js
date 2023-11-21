@@ -1,9 +1,7 @@
 const express = require('express');
-const { addTodo, getTodos } = require('../controller/todoController')
+const { addTodo, getTodos, getTodo } = require('../controller/todoController')
 
 const router = express.Router();
-
-
 
 /**
  * @swagger
@@ -47,7 +45,7 @@ router.post('/', addTodo);
  *  /todo:
  *      get:
  *          summary: List all todos.
- *          description: API to list als TODOs.
+ *          description: API to list all TODOs.
  *          responses:
  *              '200':
  *                  description: Returns the all the todos in an array
@@ -63,5 +61,42 @@ router.post('/', addTodo);
  *                             $ref: '#/components/schemas/TodoError'
  */
 router.get('/', getTodos);
+
+/**
+ * @swagger
+ * paths:
+ *  /todo/{id}:
+ *      get:
+ *          summary: Get todo by ID.
+ *          description: API to get a todo by id.
+ *          parameters:
+ *            - in: path
+ *              name: id
+ *              schema:
+ *                type: string
+ *              required: true
+ *              description: The todo id
+ *          responses:
+ *              '200':
+ *                  description: Returns the todo with the id
+ *                  content:
+ *                      application/json:
+ *                         schema:
+ *                             $ref: '#/components/schemas/TodoResult'
+ *              '400':
+ *                  description: Input error
+ *                  content:
+ *                      application/json:
+ *                         schema:
+ *                             $ref: '#/components/schemas/TodoError'
+ * 
+ *              '500':
+ *                  description: Internal server error
+ *                  content:
+ *                      application/json:
+ *                         schema:
+ *                             $ref: '#/components/schemas/TodoError'
+ */
+router.get('/:id', getTodo);
 
 module.exports = router;
