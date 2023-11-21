@@ -21,6 +21,17 @@ function getRandomInt() {
  *           type: object
  *           description: The todo object
  *           $ref: '#/components/schemas/Todo'
+ *     MultipleTodoResult:
+ *       type: object
+ *       properties:
+ *         success:
+ *           type: boolean
+ *           description: The success status. Returns true if the request is successful; otherwise, returns false.
+ *         data:
+ *           type: array
+ *           description: The todo object
+ *           items:
+ *              $ref: '#/components/schemas/Todo'
  *     TodoError:
  *       type: object
  *       properties:
@@ -58,6 +69,15 @@ const addTodo = async (req, res) => {
     }
 }
 
+const getTodos = async (req, res) => {
+    try {
+        res.status(200).json({ success: true, data: repository.getTodos() })
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, error: error, message: 'Internal Server Error' });
+    }
+}
 module.exports = {
-    addTodo
+    addTodo,
+    getTodos,
 }
